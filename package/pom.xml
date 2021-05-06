@@ -258,20 +258,6 @@
         <version>1.3.2</version>
         <executions>
           <execution>
-            <id>npm install openmrs</id>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <phase>initialize</phase>
-            <configuration>
-              <executable>npm</executable>
-              <arguments>
-                <argument>install</argument>
-                <argument>openmrs@${appShellVersion}</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
             <id>npx openmrs build</id>
             <goals>
               <goal>exec</goal>
@@ -281,6 +267,9 @@
               <!-- Using a bash script to support setting environment variables (and has other advantages) -->
               <executable>scripts/build.sh</executable>
               <commandlineArgs>${distro.microfrontendsDir}</commandlineArgs>
+              <environmentVariables>
+                <APP_SHELL_VERSION>${appShellVersion}</APP_SHELL_VERSION>
+              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -293,6 +282,9 @@
               <!-- Using a bash script for consistency with build.sh ¯\_(ツ)_/¯ -->
               <executable>scripts/assemble.sh</executable>
               <commandlineArgs>${distro.microfrontendsDir} ${microfrontendsJSONPath}</commandlineArgs>
+              <environmentVariables>
+                <APP_SHELL_VERSION>${appShellVersion}</APP_SHELL_VERSION>
+              </environmentVariables>
             </configuration>
           </execution>
         </executions>
